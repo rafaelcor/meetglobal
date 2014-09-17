@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+{{ block.super }}
+{% endblock css %}
+
+
+{% block content %}
+<br><br><br>
+<center>
+<p>Su cuenta se ha activado con éxito,<br></p>
+<p>ahora ya puede identificarse y disfrutar de los beneficios de Meet Global!<br></p></center>
+
+{% endblock content %}
+
+
+{% block js %}
+{{ block.super }}
+<!-- Some JS imports-->
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script>
+{% endblock js %}

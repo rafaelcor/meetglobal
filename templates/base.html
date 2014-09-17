@@ -1,0 +1,40 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{% static 'page/css/jquery.bxslider.css' %}" rel="stylesheet">
+		{% block css %}{% endblock css %}
+	</head>
+
+	<body>
+		<ul class="nav nav-pills">
+		  {% if user.is_authenticated %}
+		  <li class="active"><a href="#">Meet Global</a></li>
+		  <li><a href="/">Home</a></li>
+		  <li><a href="/aboutus">About Us</a></li>
+		  <li><a href="/searchpeople">Search People from abroad</a></li>
+          <li><a href="/editprofile">Edit Profile</a></li>
+		  <li><a href="/logout">Logout</a><li>
+          <li><label>{{ user }}</label></li>
+		  {% else %}
+		  <li class="active"><a href="#">Meet Global</a></li>
+		  <li><a href="/">Home</a></li>
+		  <li><a href="/aboutus">About Us</a></li>
+		  <li><a href="/register">Register</a></li>
+		  <li><a href="/login">Login</a></li>
+		  {% endif %}
+		</ul>
+		{% block content %}
+		{% endblock content %}
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="{% static 'page/js/jquery.bxslider.min.js' %}"></script>
+        <script src="{% static 'js/base.js' %}"></script>
+		
+		{% block js %}{% endblock js %}
+	</body>
+</html>
