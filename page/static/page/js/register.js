@@ -1,15 +1,30 @@
 $(document).ready(function () {
+    
+    $('#datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            yearRange: "-100:+0",
+            changeYear: true,
+            inline: true,
+            altField: '#datepicker_value',
+            onSelect: function(){
+                var day1 = $("#datepicker").datepicker('getDate').getDate();                 
+                var month1 = $("#datepicker").datepicker('getDate').getMonth() + 1;             
+                var year1 = $("#datepicker").datepicker('getDate').getFullYear();
+                window.date = year1 + "-" + month1 + "-" + day1;
+                //var str_output = "<h1><center><img src=\"/images/a" + fullDate +".png\"></center></h1><br/><br>";
+                //$('#page_output').html(str_output);
+            }
+        });
     $("button").click(function(){
         var name = $("#iname").val();
         var surname = $("#isurname").val();
-        var age = $("#iage").val();
         var email = $("#iemail").val();
         var password = $("#ipassword").val();
         var country = $("select").val();
 
             var obj = {"name" : name,
                        "surname" : surname,
-                       "age" : age,
+                       "date_of_birth" : window.date,
                        "email": email,
                        "password": password,
                        "country": country,

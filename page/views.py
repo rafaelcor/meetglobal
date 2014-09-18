@@ -86,6 +86,7 @@ class RegisterRequestView(View):
         toresponse = 0
         re_correo = re.compile('^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         var = dict(request.POST)
+        print var["date_of_birth"][0]
         if re_correo.search(var["email"][0]):
             print 2
             ran = self.genRandomActivationSubfixLink(var["name"][0], var["email"][0])
@@ -93,7 +94,7 @@ class RegisterRequestView(View):
             reg = UsersToConfirm(
                                                     name=var["name"][0],
                                                     surname=var["surname"][0],
-                                                    age=var["age"][0],
+                                                    dateOfBirth=var["date_of_birth"][0],
                                                     email=var["email"][0],
                                                     country=var["country"][0], 
                                                     password=var["password"][0], 
@@ -123,7 +124,7 @@ class ActivationView(TemplateView):
             print 4
             create = User.objects.create_user(first_name=getData[0].name,
             								  last_name=getData[0].surname,
-            								  age=getData[0].age,
+            								  date_of_birth=getData[0].dateOfBirth,
             								  country=getData[0].country,
             								  username=getData[0].email, 
                                               password=getData[0].password, 
