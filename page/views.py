@@ -123,6 +123,7 @@ class ActivationView(TemplateView):
             print 4
             create = User.objects.create_user(first_name=getData[0].name,
             								  last_name=getData[0].surname,
+            								  age=getData[0].age,
             								  country=getData[0].country,
             								  username=getData[0].email, 
                                               password=getData[0].password, 
