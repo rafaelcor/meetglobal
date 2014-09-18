@@ -2,12 +2,14 @@ $(document).ready(function () {
     $("button").click(function(){
         var name = $("#iname").val();
         var surname = $("#isurname").val();
+        var age = $("#iage").val();
         var email = $("#iemail").val();
         var password = $("#ipassword").val();
         var country = $("select").val();
 
             var obj = {"name" : name,
                        "surname" : surname,
+                       "age" : age,
                        "email": email,
                        "password": password,
                        "country": country,

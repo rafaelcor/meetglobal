@@ -90,9 +90,10 @@ class RegisterRequestView(View):
             print 2
             ran = self.genRandomActivationSubfixLink(var["name"][0], var["email"][0])
                 #print self.genRandomActivationSubfixLink(var["nombre"][0], var["correo"][0])
-            reg = UsersToConfirm.objects.create(
+            reg = UsersToConfirm(
                                                     name=var["name"][0],
                                                     surname=var["surname"][0],
+                                                    age=var["age"][0],
                                                     email=var["email"][0],
                                                     country=var["country"][0], 
                                                     password=var["password"][0], 

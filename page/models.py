@@ -3,6 +3,8 @@ from django.contrib.auth.models import User as DjangoUser
 # Create your models here.
 
 class User(models.Model):
+    age = models.IntegerField()
+    age.contribute_to_class(DjangoUser, 'age')
     email = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     auth_user = models.ForeignKey(DjangoUser)
@@ -10,10 +12,10 @@ class User(models.Model):
     languages = models.CharField(max_length=200)
     image = models.ImageField(upload_to="/media")
 
-
 class UsersToConfirm(models.Model):
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
+    age = models.IntegerField()
     email = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     password = models.CharField(max_length=200)
