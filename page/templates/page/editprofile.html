@@ -16,6 +16,30 @@
 </select>
 
 <button id="changeLanguageButton">Add language</button>{% csrf_token %}
+ <form id="uploadForm" action="/upload/" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<input id="fileInput" class="input-file" name="upload" type="file">
+<span class="upload-message"></span>
+<input type="submit" value="Upload" />
+</form>
+<script>
+var message = '';
+var options = {
+url: '/upload/',
+error: function(response) {
+message = '<span class="error">We\'re sorry, but something went wrong. Retry.</span>';
+$('.upload-message').html(message);
+$('fileInput').val('');
+},
+success: function(response) {
+message = '<span class="' + response.status + '">' + response.result + '</span> ';
+message = ( response.status == 'success' ) ? message + response.fileLink : message;
+$('.upload-message').html(message);
+$('fileInput').val('');
+}
+};
+$('#uploadForm').ajaxSubmit(options);
+</script>
 {% endblock content %}
 
 {% block js %}

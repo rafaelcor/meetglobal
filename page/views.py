@@ -219,4 +219,45 @@ class RemoveLangRequest(View):
             pass
         userGet.save()
         return HttpResponse(userGet.language)
+    
+class SearchPeopleRequest(View):
+    def get(self, request, *args, **kwargs):
+        userGet = User.objects.get(username=request.user)
+        users = {}
+        for langs in userGet.language.split(";"):
+            for user in User.objects.all():
+                if re.search(user.language, langs):
+                    if not user in users:
+                        users[user.username] += "-%s-"%langs 
+        return HttpResponse(json.dumps(users), content_type="application/json")
+
+class SearchPeople(TemplateView):
+    template_name = "page/searchpeople.html"
+
+class upload(View):
+    
+    def post(self, request, *args, **kwargs):
+        response_data = {}
+
+        if request.is_ajax():
+            form = UploaderForm(request.POST, request.FILES)
+
+            if form.is_valid():
+                upload = Upload(
+                upload=request.FILES['upload']
+                )
+                upload.name = request.FILES['upload'].name
+                upload.save()
+
+                response_data['status'] = "success"
+                response_data['result'] = "Your file has been uploaded:"
+                response_data['fileLink'] = "/%s" % upload.upload
+
+                return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+        response_data['status'] = "error"
+        response_data['result'] = "We're sorry, but something went wrong. Please be sure that your file respects the upload                                                                                                                         conditions."
+
+        return HttpResponse(json.dumps(response_data), content_type='application/json')
+                    
         
