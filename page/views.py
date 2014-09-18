@@ -70,7 +70,7 @@ class RegisterRequestView(View):
                     El equipo de Meet Global
                   </body>
                 </html>
-                """.format("localhost:8000/activation/%s"%link_sub, name)
+                """.format("http://localhost:8000/activation/%s"%link_sub, name)
         msg.attach(MIMEText(html, 'html'))
         server.sendmail("rafael.cordano@gmail.com", receiver, msg.as_string())
         
@@ -225,10 +225,16 @@ class SearchPeopleRequest(View):
         userGet = User.objects.get(username=request.user)
         users = {}
         for langs in userGet.language.split(";"):
+            print langs
             for user in User.objects.all():
-                if re.search(user.language, langs):
-                    if not user in users:
-                        users[user.username] += "-%s-"%langs 
+                print user.language
+                print langs
+                if re.search(langs, user.language):
+                    #print 123
+                    users[user.username] = [langs, "%s %s"%(user.first_name, user.last_name)]
+                    #print 456
+        print request.user
+        del users["%s"%request.user]
         return HttpResponse(json.dumps(users), content_type="application/json")
 
 class SearchPeople(TemplateView):

@@ -1,0 +1,8 @@
+.user{
+    border: 2px solid;
+    border-radius: 25px;
+}
+
+.selected{
+    background-color: #818FFF
+}

@@ -9,15 +9,29 @@ $(document).ready(function(){
         return s;
     };
     console.log("Hello");
-    $.get( "/getLang_request/", function( data ) {
+    $.get( "/searchpeople_request/", function( data ) {
         console.log("Hello");
-        $.each(data, function(user, langs){
+        //datal = []
+        //datal.push(data.split(";"));
+        console.log(data);
+        $.each(data, function(user, langs, nameAndSurname){
             $("#usersToMeet").append("<div class='user'>"+
-                                          "<img src='/media/{0}.png'.format(user)></img>"+
-                                          "<label class='name'></label>"+
-                                          "<label class='age'></label>"+
+                                          //"<img src='/media/{0}.png'.format(user)></img>"+
+                                          "<label class='name'>"+ langs[1] + "</label>"+
+                                          //"<label class='age'></label>"+
+                                          
                                      "</div>");
+            $(".user").mouseover(function(){
+                $(this).addClass("selected");
+            });
+            $(".user").mouseout(function(){
+                $(this).removeClass("selected");
+            });
+            $(".user").click(function(){
+                console.log("More info...");
+            });
         });
+            
     });
     
 });
