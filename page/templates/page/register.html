@@ -4,6 +4,7 @@
 
 {% block css %}
 {{ block.super }}
+    <link href="{% static 'page/css/register.css' %}" rel="stylesheet">
 {% endblock css %}
 
 
@@ -15,7 +16,8 @@ Name: <input type="text" class="form-control" id="iname"></input>
 Surname : <input type="text" class="form-control" id="isurname"></input>
 Date of birth : <input type="text" id="datepicker"></input>
 <br><br>
-Country : <select name="country">
+Country :
+<div class="styled-select"><select name="country">
 <option value="">Country...</option>
 <option value="AF">Afghanistan</option>
 <option value="AL">Albania</option>
@@ -264,12 +266,12 @@ Country : <select name="country">
 <option value="ZR">Zaire</option>
 <option value="ZM">Zambia</option>
 <option value="ZW">Zimbabwe</option>
-</select>
+</select></div>
 <br>
 E-mail : <input type="text" class="form-control" id="iemail"></input>
 Password : <input type="password" class="form-control" id="ipassword"></input>
 
-<button>Send</button>{% csrf_token %}
+<button class="btn btn-default btn-lg">Send</button>{% csrf_token %}
 {% endblock content %}
 
 {% block js %}

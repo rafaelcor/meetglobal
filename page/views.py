@@ -10,7 +10,8 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 
@@ -33,6 +34,13 @@ from email.mime.text import MIMEText
 
 
 # Create your views here.
+
+###Mixins
+class LoginRequiredMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+###
 
 class Home(TemplateView):
     template_name = "page/index.html"
@@ -173,18 +181,18 @@ class LoginRequestView(View):
         return HttpResponse(json.dumps(var), content_type="application/json")
 
 
-class LogOut(TemplateView):
+class LogOut(LoginRequiredMixin, TemplateView):
     def get(self, request):
         logout(request)
         return super(LogOut, self).get(request)
     template_name = 'page/logout.html'
 
-class EditProfileView(TemplateView):
+class EditProfileView(LoginRequiredMixin, TemplateView):
     template_name = "page/editprofile.html"
     def split_semicolon(self):
         return self.split(";")
 
-class AddLangRequest(View):
+class AddLangRequest(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         var = dict(request.POST)
         self.langToAdd = var["language"];
@@ -201,14 +209,14 @@ class AddLangRequest(View):
         userGet.save()
         return HttpResponse(json.dumps(request.POST), content_type="application/json")
     
-class GetLangRequest(View):
+class GetLangRequest(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         userGet = User.objects.get(username=request.user)
         print userGet.language
         return HttpResponse(userGet.language)
         #return HttpResponse("{1:2}", content_type="application/json")
 
-class RemoveLangRequest(View):
+class RemoveLangRequest(LoginRequiredMixin, View):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
         var = dict(request.POST)
@@ -225,7 +233,7 @@ class RemoveLangRequest(View):
         userGet.save()
         return HttpResponse(userGet.language)
     
-class SearchPeopleRequest(View):
+class SearchPeopleRequest(LoginRequiredMixin, View):
     def age(self, day, month, year, cday=0, cmonth=0, cyear=0):
         date(year, month, day)
         if cday:
@@ -264,7 +272,7 @@ class SearchPeopleRequest(View):
         del users["%s"%request.user]
         return HttpResponse(json.dumps(users), content_type="application/json")
 
-class SearchPeople(TemplateView):
+class SearchPeople(LoginRequiredMixin, TemplateView):
     template_name = "page/searchpeople.html"
 
 class upload(View):
