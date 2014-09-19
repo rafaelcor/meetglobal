@@ -24,6 +24,8 @@ import random
 import base64
 import smtplib
 import re
+from datetime import date
+from calendar import monthrange
 
 
 from email.mime.multipart import MIMEMultipart
@@ -224,6 +226,25 @@ class RemoveLangRequest(View):
         return HttpResponse(userGet.language)
     
 class SearchPeopleRequest(View):
+    def age(self, day, month, year, cday=0, cmonth=0, cyear=0):
+        date(year, month, day)
+        if cday:
+            today = date(cyear, cmonth, cday)
+        else:
+            today = date.today()
+        years = today.year-year
+        months = today.month-month
+        days = today.day-day
+        if days < 0:
+            months -= 1
+            days += monthrange(year, month)[1]
+        if months < 0:
+            years -= 1
+            months += 12
+        if years < 0:
+            raise ValueError, "the given date wasn't reached yet!"
+        return days, months, years
+
     def get(self, request, *args, **kwargs):
         userGet = User.objects.get(username=request.user)
         users = {}
@@ -234,7 +255,10 @@ class SearchPeopleRequest(View):
                 print langs
                 if re.search(langs, user.language):
                     #print 123
-                    users[user.username] = [langs, "%s %s"%(user.first_name, user.last_name)]
+                    print user.date_of_birth.year
+                    users[user.username] = [langs, "%s %s"%(user.first_name,
+                                                            user.last_name),
+                                            self.age(user.date_of_birth.day, user.date_of_birth.month, user.date_of_birth.year)[2]]
                     #print 456
         print request.user
         del users["%s"%request.user]

@@ -17,8 +17,8 @@ $(document).ready(function(){
         $.each(data, function(user, langs, nameAndSurname){
             $("#usersToMeet").append("<div class='user'>"+
                                           //"<img src='/media/{0}.png'.format(user)></img>"+
-                                          "<label class='name'>"+ langs[1] + "</label>"+
-                                          //"<label class='age'></label>"+
+                                          "<label class='name'>&nbsp;&nbsp;Complete Name: "+ langs[1] + "</label>"+ "<br>"+
+                                          "<label class='age'>&nbsp;&nbsp;Age: " + langs[2] + "</label>"+
                                           
                                      "</div>");
             $(".user").mouseover(function(){
