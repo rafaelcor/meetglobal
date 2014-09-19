@@ -28,11 +28,14 @@ SECRET_KEY = 'nu+uk5#hp#qm9c-^$7n)0yjv_s$7v0n6$9uu-ko3c9z&jk)!k_'
 DEBUG = True
 PROJECT_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..')
 TEMPLATE_DEBUG = True
+
+
 def rel(*x):
     return os.path.abspath(os.path.join(PROJECT_ROOT, *x))
+
 TEMPLATE_DIRS = (
-                    rel("templates/"),
-                )
+    rel("templates/"),
+)
 
 ALLOWED_HOSTS = []
 
@@ -95,7 +98,7 @@ USE_TZ = True
 STATIC_ROOT = rel('assets')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-                    rel('static'),
+    rel('static'),
 )
 
 STATICFILES_FINDERS = (

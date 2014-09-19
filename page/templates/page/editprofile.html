@@ -16,12 +16,10 @@
 </select>
 
 <button id="changeLanguageButton">Add language</button>{% csrf_token %}
- <form id="uploadForm" action="/upload/" method="post" enctype="multipart/form-data">
-{% csrf_token %}
-<input id="fileInput" class="input-file" name="upload" type="file">
-<span class="upload-message"></span>
-<input type="submit" value="Upload" />
-</form>
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
 <script>
 var message = '';
 var options = {

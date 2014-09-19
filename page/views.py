@@ -19,6 +19,9 @@ from django.core.mail import send_mail
 from page.models import User as Uuser
 from page.models import UsersToConfirm
 
+from django.shortcuts import render, redirect #puedes importar render_to_response
+from page.forms import UploadForm
+from page.models import Document
 
 import json
 import random
@@ -42,17 +45,22 @@ class LoginRequiredMixin(object):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 ###
 
+
 class Home(TemplateView):
     template_name = "page/index.html"
+
 
 class Register(TemplateView):
 	template_name = "page/register.html"
 
+
 class Login(TemplateView):
 	template_name = "page/login.html"
 
+
 class AboutUs(TemplateView):
 	template_name = "page/aboutus.html"
+
 
 class RegisterRequestView(View):
     def send_mail(self, receiver, link_sub, name):
@@ -83,7 +91,6 @@ class RegisterRequestView(View):
                 """.format("http://localhost:8000/activation/%s"%link_sub, name)
         msg.attach(MIMEText(html, 'html'))
         server.sendmail("rafael.cordano@gmail.com", receiver, msg.as_string())
-        
 
     def genRandomActivationSubfixLink(self, auser, correo):
         var = "{0}{1}{2}".format(auser, correo, random.randint(1,100))
@@ -119,6 +126,7 @@ class RegisterRequestView(View):
             toresponse = {"register": "wrong"}
         return HttpResponse(json.dumps(toresponse), content_type="application/json")
 
+
 class ActivationView(TemplateView):
     template_name = "page/activate.html"
     
@@ -152,11 +160,12 @@ class ActivationView(TemplateView):
         #return context
         return context
 
+
 class AboutUs(TemplateView):
     template_name = "page/aboutus.html"
 
-class LoginRequestView(View):
 
+class LoginRequestView(View):
 
     def post(self, request, *args, **kwargs):
         self.user_session = None
@@ -165,7 +174,6 @@ class LoginRequestView(View):
         self.user = var["email"][0]
         self.password = var["password"][0]
         return self.Signinf(request)
-
 
     def Signinf(self, request):
         usera = None
@@ -187,10 +195,12 @@ class LogOut(LoginRequiredMixin, TemplateView):
         return super(LogOut, self).get(request)
     template_name = 'page/logout.html'
 
+
 class EditProfileView(LoginRequiredMixin, TemplateView):
     template_name = "page/editprofile.html"
     def split_semicolon(self):
         return self.split(";")
+
 
 class AddLangRequest(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
@@ -208,13 +218,15 @@ class AddLangRequest(LoginRequiredMixin, View):
         #print userGet.language == ""
         userGet.save()
         return HttpResponse(json.dumps(request.POST), content_type="application/json")
-    
+
+
 class GetLangRequest(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         userGet = User.objects.get(username=request.user)
         print userGet.language
         return HttpResponse(userGet.language)
         #return HttpResponse("{1:2}", content_type="application/json")
+
 
 class RemoveLangRequest(LoginRequiredMixin, View):
     @csrf_exempt
@@ -232,7 +244,8 @@ class RemoveLangRequest(LoginRequiredMixin, View):
             pass
         userGet.save()
         return HttpResponse(userGet.language)
-    
+
+
 class SearchPeopleRequest(LoginRequiredMixin, View):
     def age(self, day, month, year, cday=0, cmonth=0, cyear=0):
         date(year, month, day)
@@ -272,33 +285,31 @@ class SearchPeopleRequest(LoginRequiredMixin, View):
         del users["%s"%request.user]
         return HttpResponse(json.dumps(users), content_type="application/json")
 
+
 class SearchPeople(LoginRequiredMixin, TemplateView):
     template_name = "page/searchpeople.html"
 
-class upload(View):
-    
+
+class Upload(View):
+    #def __init__(self, test):
+    #    print
+
     def post(self, request, *args, **kwargs):
-        response_data = {}
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            newdoc = Document(filename=request.POST['filename'], docfile=request.FILES['docfile'])
+            newdoc.save(form)
+            return redirect("uploads")
+        else:
+            form = UploadForm()
+        #tambien se puede utilizar render_to_response
+        #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
+        return render(request, 'page/templates/editprofile.html', {
+            'form': form
+        })
 
-        if request.is_ajax():
-            form = UploaderForm(request.POST, request.FILES)
-
-            if form.is_valid():
-                upload = Upload(
-                upload=request.FILES['upload']
-                )
-                upload.name = request.FILES['upload'].name
-                upload.save()
-
-                response_data['status'] = "success"
-                response_data['result'] = "Your file has been uploaded:"
-                response_data['fileLink'] = "/%s" % upload.upload
-
-                return HttpResponse(json.dumps(response_data), content_type="application/json")
-
-        response_data['status'] = "error"
-        response_data['result'] = "We're sorry, but something went wrong. Please be sure that your file respects the upload                                                                                                                         conditions."
-
-        return HttpResponse(json.dumps(response_data), content_type='application/json')
-                    
-        
+    def get(self, request, *args, **kwargs):
+        form = UploadForm()
+        return render(request, 'editprofile.html', {
+            'form': form
+        })

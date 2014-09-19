@@ -16,29 +16,31 @@ from page.views import AddLangRequest
 from page.views import GetLangRequest
 from page.views import RemoveLangRequest
 from page.views import SearchPeople
-from page.views import SearchPeopleRequest, upload
+from page.views import SearchPeopleRequest, Upload
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'meetglobo.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', Home.as_view()),
-    url(r'^register/$', Register.as_view()),
-    url(r'^login/$', Login.as_view()),
-    url(r'^logout/$', LogOut.as_view()),
-    url(r'^editprofile', EditProfileView.as_view()),
-    url(r'^aboutus/$', AboutUs.as_view()),
-    url(r'^register_request/$', RegisterRequestView.as_view()),
-    url(r'^activation/(?P<suffix>[a-zA-Z1-9=.,*]+)$', ActivationView.as_view()),
-    url(r'^login_request/$', LoginRequestView.as_view()),
-    url(r'^addLang_request/$', AddLangRequest.as_view()),
-    url(r'^getLang_request/$', GetLangRequest.as_view()),
-    url(r'^removeLang_request/$', RemoveLangRequest.as_view()),
-    url(r'^searchpeople/$', SearchPeople.as_view()),
-    url(r'^searchpeople_request/$', SearchPeopleRequest.as_view()),
-    url(r'^upload/$', upload.as_view()),
+                       # Examples:
+                       # url(r'^$', 'meetglobo.views.home', name='home'),
+                       # url(r'^blog/', include('blog.urls')),
+
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^$', Home.as_view()),
+                       url(r'^register/$', Register.as_view()),
+                       url(r'^login/$', Login.as_view()),
+                       url(r'^logout/$', LogOut.as_view()),
+                       url(r'^editprofile', EditProfileView.as_view()),
+                       url(r'^aboutus/$', AboutUs.as_view()),
+                       url(r'^register_request/$', RegisterRequestView.as_view()),
+                       url(r'^activation/(?P<suffix>[a-zA-Z1-9=.,*]+)$', ActivationView.as_view()),
+                       url(r'^login_request/$', LoginRequestView.as_view()),
+                       url(r'^addLang_request/$', AddLangRequest.as_view()),
+                       url(r'^getLang_request/$', GetLangRequest.as_view()),
+                       url(r'^removeLang_request/$', RemoveLangRequest.as_view()),
+                       url(r'^searchpeople/$', SearchPeople.as_view()),
+                       url(r'^searchpeople_request/$', SearchPeopleRequest.as_view()),
+                       #url(r'^upload/$', Upload.as_view()),
+                       url(r'^upload/$', Upload.as_view(), name="uploads"),
     
 )
 #urlpatterns = patterns('upload.views', (r'^upload/$', 'upload'),
