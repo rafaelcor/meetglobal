@@ -51,5 +51,26 @@ $(document).ready(function(){
             $(location).attr('href', "/editprofile");
         });
 
-    }); 
+    });
+    var files;
+
+    // Add events
+    $('input[type=file]').on('change', prepareUpload);
+
+    // Grab the files and set them to our variable
+    var file;
+    function prepareUpload(event)
+    {
+      file = event.target.files;
+    }
+    $("#sendFile").click(function(){
+        var obj = {"docfile": file,
+                   "smg": "1",
+                   'csrfmiddlewaretoken': $.cookie('csrftoken')}
+
+
+        $.post("/upload_request/", obj, function(data){
+            console.log(data);
+        });
+    });
 });

@@ -1,0 +1,6 @@
+#id_filename{
+    visibility: hidden;
+}
+[for="id_filename"]{
+    visibility: hidden;
+}

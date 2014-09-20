@@ -43,6 +43,19 @@ class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class CsrfExemptMixin(object):
+    """
+    Exempts the view from CSRF requirements.
+
+    NOTE:
+        This should be the left-most mixin of a view.
+    """
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(CsrfExemptMixin, self).dispatch(*args, **kwargs)
 ###
 
 
@@ -198,6 +211,7 @@ class LogOut(LoginRequiredMixin, TemplateView):
 
 class EditProfileView(LoginRequiredMixin, TemplateView):
     template_name = "page/editprofile.html"
+
     def split_semicolon(self):
         return self.split(";")
 
@@ -290,26 +304,24 @@ class SearchPeople(LoginRequiredMixin, TemplateView):
     template_name = "page/searchpeople.html"
 
 
-class Upload(View):
+class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
     #def __init__(self, test):
     #    print
 
     def post(self, request, *args, **kwargs):
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            newdoc = Document(filename=request.POST['filename'], docfile=request.FILES['docfile'])
-            newdoc.save(form)
-            return redirect("uploads")
-        else:
-            form = UploadForm()
-        #tambien se puede utilizar render_to_response
-        #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
-        return render(request, 'page/templates/editprofile.html', {
-            'form': form
-        })
-
+        var = dict(request.POST)
+        userGet = User.objects.get(username=request.user)
+        print userGet.email
+        print var["smg"]
+        newdoc = Document(filename=userGet.email, docfile=request.FILES['docfile'])
+        print 2
+        newdoc.save()
+        print 3
+        return HttpResponse(json.dumps(userGet), content_type="application/json")
+    """
     def get(self, request, *args, **kwargs):
         form = UploadForm()
-        return render(request, 'editprofile.html', {
+        return render(request, 'page/editprofile.html', {
             'form': form
         })
+    """

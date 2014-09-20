@@ -31,7 +31,7 @@ class Message(models.Model):
 
 class Document(models.Model):
     filename = models.CharField(max_length=100)
-    docfile = models.FileField(upload_to='media/test.txt')
+    docfile = models.FileField(upload_to='imgProfiles/')
 
 
 country = models.CharField(max_length=100)

@@ -4,40 +4,22 @@
 
 {% block css %}
 {{ block.super }}
+<link href="{% static 'page/css/editprofile.css' %}" rel="stylesheet" type="text/css">
+
 {% endblock css %}
 
 
 {% block content %}
 
 
-<!--<select name="hl" id="language"><option value="af">Afrikáans - &#8234;Afrikaans&#8236;</option> <option value="de">Alemán - &#8234;Deutsch&#8236;</option> <option value="am">Amárico - &#8234;አማርኛ&#8236;</option> <option value="ar">Árabe - &#8235;العربية&#8236;</option> <option value="bn">Bengalí - &#8234;বাংলা&#8236;</option> <option value="bg">Búlgaro - &#8234;български&#8236;</option> <option value="kn">Canarés - &#8234;ಕನ್ನಡ&#8236;</option> <option value="ca">Catalán - &#8234;català&#8236;</option> <option value="cs">Checo - &#8234;Čeština&#8236;</option> <option value="zh-HK">Chino (Hong Kong) - &#8234;中文（香港）&#8236;</option> <option value="zh-CN">Chino (simplificado) - &#8234;简体中文&#8236;</option> <option value="zh-TW">Chino (tradicional) - &#8234;繁體中文&#8236;</option> <option value="ko">Coreano - &#8234;한국어&#8236;</option> <option value="hr">Croata - &#8234;Hrvatski&#8236;</option> <option value="da">Danés - &#8234;Dansk&#8236;</option> <option value="sk">Eslovaco - &#8234;Slovenčina&#8236;</option> <option value="sl">Esloveno - &#8234;slovenščina&#8236;</option> <option value="es" selected="">Español (España)</option> <option value="es-419">Español (Latinoamérica)</option> <option value="et">Estonio - &#8234;eesti&#8236;</option> <option value="fil">Filipino</option> <option value="fi">Finés - &#8234;Suomi&#8236;</option> <option value="fr-CA">Francés (Canadá) - &#8234;Français (Canada)&#8236;</option> <option value="fr">Francés (Francia) - &#8234;Français (France)&#8236;</option> <option value="gl">Gallego - &#8234;galego&#8236;</option> <option value="el">Griego - &#8234;Ελληνικά&#8236;</option> <option value="gu">Gujarati - &#8234;ગુજરાતી&#8236;</option> <option value="iw">Hebreo - &#8235;עברית&#8236;</option> <option value="hi">Hindi - &#8234;हिन्दी&#8236;</option> <option value="hu">Húngaro - &#8234;magyar&#8236;</option> <option value="id">Indonesio - &#8234;Bahasa Indonesia&#8236;</option> <option value="en">Inglés (Estados Unidos) - &#8234;English (United States)&#8236;</option> <option value="en-GB">Inglés (Reino Unido) - &#8234;English (United Kingdom)&#8236;</option> <option value="is">Islandés - &#8234;íslenska&#8236;</option> <option value="it">Italiano</option> <option value="ja">Japonés - &#8234;日本語&#8236;</option> <option value="lv">Letón - &#8234;latviešu&#8236;</option> <option value="lt">Lituano - &#8234;lietuvių&#8236;</option> <option value="ml">Malayalam - &#8234;മലയാളം&#8236;</option> <option value="ms">Malayo - &#8234;Bahasa Melayu&#8236;</option> <option value="mr">Marathi - &#8234;मराठी&#8236;</option> <option value="nl">Neerlandés - &#8234;Nederlands&#8236;</option> <option value="no">Noruego - &#8234;norsk&#8236;</option> <option value="or">Oriya - &#8234;ଓଡ଼ିଆ&#8236;</option> <option value="fa">Persa - &#8235;فارسی&#8236;</option> <option value="pl">Polaco - &#8234;polski&#8236;</option> <option value="pt-BR">Portugués (Brasil) - &#8234;Português (Brasil)&#8236;</option> <option value="pt-PT">Portugués (Portugal) - &#8234;Português (Portugal)&#8236;</option> <option value="ro">Rumano - &#8234;română&#8236;</option> <option value="ru">Ruso - &#8234;Русский&#8236;</option> <option value="sr">Serbio - &#8234;Српски&#8236;</option> <option value="sv">Sueco - &#8234;Svenska&#8236;</option> <option value="sw">Swahili - &#8234;Kiswahili&#8236;</option> <option value="th">Tailandés - &#8234;ไทย&#8236;</option> <option value="ta">Tamil - &#8234;தமிழ்&#8236;</option> <option value="te">Telugu - &#8234;తెలుగు&#8236;</option> <option value="tr">Turco - &#8234;Türkçe&#8236;</option> <option value="uk">Ucraniano - &#8234;Українська&#8236;</option> <option value="ur">Urdu - &#8235;اردو&#8236;</option> <option value="eu">Vasco - &#8234;euskara&#8236;</option> <option value="vi">Vietnamita - &#8234;Tiếng Việt&#8236;</option> <option value="zu">Zulú - &#8234;isiZulu&#8236;</option></select>-->
 {% csrf_token %}<div id="knownLanguages"></div>{% csrf_token %}
 <select id="language">
 </select>
 
-<button id="changeLanguageButton">Add language</button>{% csrf_token %}
-<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
-<script>
-var message = '';
-var options = {
-url: '/upload/',
-error: function(response) {
-message = '<span class="error">We\'re sorry, but something went wrong. Retry.</span>';
-$('.upload-message').html(message);
-$('fileInput').val('');
-},
-success: function(response) {
-message = '<span class="' + response.status + '">' + response.result + '</span> ';
-message = ( response.status == 'success' ) ? message + response.fileLink : message;
-$('.upload-message').html(message);
-$('fileInput').val('');
-}
-};
-$('#uploadForm').ajaxSubmit(options);
-</script>
+{% csrf_token %}<button id="changeLanguageButton">Add language</button>{% csrf_token %}
+
+{% csrf_token %}<input id="uploadFile" type="file"></input>{% csrf_token %}
+{% csrf_token %}<button id="sendFile">Submit file</button>{% csrf_token %}
 {% endblock content %}
 
 {% block js %}

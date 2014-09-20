@@ -16,7 +16,8 @@ from page.views import AddLangRequest
 from page.views import GetLangRequest
 from page.views import RemoveLangRequest
 from page.views import SearchPeople
-from page.views import SearchPeopleRequest, Upload
+from page.views import SearchPeopleRequest
+from page.views import UploadRequest
 
 urlpatterns = patterns('',
 
@@ -39,8 +40,8 @@ urlpatterns = patterns('',
                        url(r'^removeLang_request/$', RemoveLangRequest.as_view()),
                        url(r'^searchpeople/$', SearchPeople.as_view()),
                        url(r'^searchpeople_request/$', SearchPeopleRequest.as_view()),
-                       #url(r'^upload/$', Upload.as_view()),
-                       url(r'^upload/$', Upload.as_view(), name="uploads"),
+                       url(r'^upload_request/$', UploadRequest.as_view()),
+                       #url(r'^editprofile/$', Upload.as_view()),
     
 )
 #urlpatterns = patterns('upload.views', (r'^upload/$', 'upload'),
