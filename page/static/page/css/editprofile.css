@@ -1,3 +1,12 @@
+.user{
+    position: relative;
+    margin-left: 100px;
+    margin-top: 50px;
+    border: 2px solid;
+    border-radius: 25px;
+    width: 600px;
+}
+
 #id_filename{
     visibility: hidden;
 }

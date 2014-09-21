@@ -10,7 +10,13 @@
 
 
 {% block content %}
-
+<div class='user'>
+ <label class='name'>&nbsp;&nbsp;Complete Name: {{user.first_name}} {{user.last_name}}</label><br>
+ <label class='name'>&nbsp;&nbsp;E-mail: {{user.email}}</label><br>
+ <label class='name'>&nbsp;&nbsp;Birthday: {{user.date_of_birth}} ({{years}}, {{months}} and {{days}} old)</label><br>
+ <label class='name'>&nbsp;&nbsp;Country: {{country}}</label><br>
+</div>
+<br>
 
 {% csrf_token %}<div id="knownLanguages"></div>{% csrf_token %}
 <select id="language">
@@ -19,7 +25,7 @@
 {% csrf_token %}<button id="changeLanguageButton">Add language</button>{% csrf_token %}
 
 <form id="fileForm" action="/upload_request/" method="POST" enctype="multipart/form-data">
-{% csrf_token %}<input id="uploadFile" type="file" name="docfile"></input>{% csrf_token %}
+{% csrf_token %}<input id="uploadFile" type="file" name="docfile" accept="image/*"></input>{% csrf_token %}
 <input type='hidden' name='smg' value='1' />
 {% csrf_token %}<button id="sendFile">Submit file</button>{% csrf_token %}
 </form>
