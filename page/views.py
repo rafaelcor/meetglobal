@@ -317,7 +317,7 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
         print 2
         newdoc.save()
         print 3
-        return HttpResponse(json.dumps(userGet), content_type="application/json")
+        return HttpResponse(json.dumps(userGet.email), content_type="application/json")
     """
     def get(self, request, *args, **kwargs):
         form = UploadForm()

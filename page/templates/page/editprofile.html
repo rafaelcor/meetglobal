@@ -18,8 +18,11 @@
 
 {% csrf_token %}<button id="changeLanguageButton">Add language</button>{% csrf_token %}
 
-{% csrf_token %}<input id="uploadFile" type="file"></input>{% csrf_token %}
+<form id="fileForm" action="/upload_request/" method="POST" enctype="multipart/form-data">
+{% csrf_token %}<input id="uploadFile" type="file" name="docfile"></input>{% csrf_token %}
+<input type='hidden' name='smg' value='1' />
 {% csrf_token %}<button id="sendFile">Submit file</button>{% csrf_token %}
+</form>
 {% endblock content %}
 
 {% block js %}
