@@ -28,6 +28,8 @@ import random
 import base64
 import smtplib
 import re
+import os
+
 from datetime import date
 from calendar import monthrange
 
@@ -111,7 +113,7 @@ class RegisterRequestView(View):
         print "test"
         print ran
         return ran
-        
+
     def post(self, request, *args, **kwargs):
         toresponse = 0
         re_correo = re.compile('^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
@@ -126,14 +128,14 @@ class RegisterRequestView(View):
                                                     surname=var["surname"][0],
                                                     dateOfBirth=var["date_of_birth"][0],
                                                     email=var["email"][0],
-                                                    country=var["country"][0], 
-                                                    password=var["password"][0], 
+                                                    country=var["country"][0],
+                                                    password=var["password"][0],
                                                     random_link_subfix=ran)
             reg.save()
             print ran
             self.send_mail(var["email"][0], ran, var["name"][0])
                 #print self.genRandomActivationSubfixLink(var["nombre"][0], var["correo"][0])
-                
+
             toresponse = {"register": "successful"}
         else:
             toresponse = {"register": "wrong"}
@@ -142,7 +144,7 @@ class RegisterRequestView(View):
 
 class ActivationView(TemplateView):
     template_name = "page/activate.html"
-    
+
     def get_context_data(self, **kwargs):
         toreturn = 0
         try:
@@ -157,8 +159,8 @@ class ActivationView(TemplateView):
             								  last_name=getData[0].surname,
             								  date_of_birth=getData[0].dateOfBirth,
             								  country=getData[0].country,
-            								  username=getData[0].email, 
-                                              password=getData[0].password, 
+            								  username=getData[0].email,
+                                              password=getData[0].password,
                                               email=getData[0].email)
             print 5
             create.save()
@@ -223,12 +225,12 @@ class AddLangRequest(LoginRequiredMixin, View):
         print self.langToAdd[0]
         userGet = User.objects.get(username=request.user)
         print userGet.language
-        
+
         if userGet.language == "":
             userGet.language = "%s" % (self.langToAdd[0])
         else:
             userGet.language = "%s;%s" % (userGet.language, self.langToAdd[0])
-        
+
         #print userGet.language == ""
         userGet.save()
         return HttpResponse(json.dumps(request.POST), content_type="application/json")
@@ -316,11 +318,17 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
         newdoc = Document(filename=userGet.email, docfile=request.FILES['docfile'])
         print 2
         newdoc.save()
+        print request.FILES["docfile"]
+        h = "/home/rafael/meetglobal/media/imgProfiles/%s"%request.FILES['docfile']
+        h2 = "/home/rafael/meetglobal/media/imgProfiles/%s"%userGet.email
+        print h
+        os.rename(h, h2)
+        #newdoc.save()
         print 3
         return HttpResponse(json.dumps(userGet.email), content_type="application/json")
     """
     def get(self, request, *args, **kwargs):
-        form = UploadForm()
+        docfildocfildocfildocfileeeeform = UploadForm()
         return render(request, 'page/editprofile.html', {
             'form': form
         })
