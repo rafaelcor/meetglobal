@@ -337,7 +337,8 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
         newdoc.save()
         print request.FILES["docfile"]
         h = "media/imgProfiles/%s"%request.FILES['docfile']
-        h2 = "media/imgProfiles/%s"%userGet.email
+	reqf = "%s"%request.FILES["docfile"]
+	h2 = "media/imgProfiles/%s.%s"%(userGet.email, reqf.rsplit(".", 1)[1])
         print h
         os.rename(h, h2)
         #newdoc.save()
