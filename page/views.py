@@ -319,8 +319,8 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
         print 2
         newdoc.save()
         print request.FILES["docfile"]
-        h = "/home/rafael/meetglobal/media/imgProfiles/%s"%request.FILES['docfile']
-        h2 = "/home/rafael/meetglobal/media/imgProfiles/%s"%userGet.email
+        h = "media/imgProfiles/%s"%request.FILES['docfile']
+        h2 = "media/imgProfiles/%s"%userGet.email
         print h
         os.rename(h, h2)
         #newdoc.save()
