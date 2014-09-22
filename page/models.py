@@ -10,7 +10,7 @@ class User(models.Model):
     auth_user = models.ForeignKey(DjangoUser)
     password = models.CharField(max_length=200)
     languages = models.CharField(max_length=200)
-    image = models.ImageField(upload_to="/page/static/page/media/imgProfiles/rafael.cordano@gmail.com.jpg")
+    image = models.ImageField(upload_to="/page/static/page/media")
     
 
 class UsersToConfirm(models.Model):
