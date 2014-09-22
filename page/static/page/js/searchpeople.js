@@ -18,7 +18,8 @@ $(document).ready(function(){
             $("#usersToMeet").append("<div class='user'>"+
                                           //"<img src='/media/{0}.png'.format(user)></img>"+
                                           "<label class='name'>&nbsp;&nbsp;Complete Name: "+ langs[1] + "</label>"+ "<br>"+
-                                          "<label class='age'>&nbsp;&nbsp;Age: " + langs[2] + "</label>"+
+                                          "<label class='age'>&nbsp;&nbsp;Age: " + langs[2] + "</label>"+ "<br>"+
+                                          "<label class='country'>&nbsp;&nbsp;Country: " + countries[langs[3]] + "</label>"+
                                           
                                      "</div>");
             $(".user").mouseover(function(){

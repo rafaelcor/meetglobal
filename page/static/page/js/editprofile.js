@@ -9,12 +9,16 @@ $(document).ready(function(){
         return s;
     };
     //console.log("hello1")
+
+    $.post( "/editprofile/", {'csrfmiddlewaretoken': $.cookie('csrftoken')}, function(data){
+        $("#profileInfo").append("<label class='country'>Country: {0}</label><br>".format(window.countries[data]))
+    });
         
     var testt = $.get( "/getLang_request/", function( data ) {
         console.log(data=="");
         if (data != ""){
             $.each(data.split(";"), function(index, item){
-                $("#knownLanguages").append("<div><label>{0}</label><button class='removeLanguage'>Remove</button>                                                                  </div>".format(item));
+                $("#knownLanguages").append("<div><label>{0}</label><button class='removeLanguage'>Remove</button>                                                                  </div>".format(window.lang[item]));
                 console.log(item);
             });
             $(".removeLanguage").click(function(){

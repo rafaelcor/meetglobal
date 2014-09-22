@@ -15,6 +15,11 @@ $(document).ready(function () {
                 //$('#page_output').html(str_output);
             }
         });
+
+    for(x in countries){
+        $("#country").append("<option value='"+x+"'>"+countries[x]+"</option>")
+    }
+
     $("button").click(function(){
         var name = $("#iname").val();
         var surname = $("#isurname").val();

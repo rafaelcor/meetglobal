@@ -11,10 +11,28 @@
 
 {% block content %}
 <div class='user'>
- <label class='name'>&nbsp;&nbsp;Complete Name: {{user.first_name}} {{user.last_name}}</label><br>
- <label class='name'>&nbsp;&nbsp;E-mail: {{user.email}}</label><br>
- <label class='name'>&nbsp;&nbsp;Birthday: {{user.date_of_birth}} ({{years}}, {{months}} and {{days}} old)</label><br>
- <label class='name'>&nbsp;&nbsp;Country: {{country}}</label><br>
+ <table>
+  <tr style="height: 5px;">
+  </tr>
+  <tr>
+   <th style="width: 10px;">
+   </th>
+   <td>
+    <div id="profileInfo">
+     <label class='name'>Complete Name: {{user.first_name}} {{user.last_name}}</label><br>
+     <label class='email'>E-mail: {{user.email}}</label><br>
+     <label class='birthday'>Birthday: {{user.date_of_birth}} ({{years}}, {{months}} and {{days}} old)</label><br>
+    </div>
+   </td>
+   <td style="width: 10%;">
+   {% if user.image != "" %}
+    <img src="/static/page/media/imgProfiles/{{user.image}}" alt="Profile Image" width="100" height="100">
+   {% endif %}
+   </td>
+  </tr>
+  <tr style="height: 5px;">
+  </tr>
+ </table>
 </div>
 <br>
 
