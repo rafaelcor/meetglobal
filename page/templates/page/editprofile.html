@@ -10,38 +10,28 @@
 
 
 {% block content %}
-<div class='user'>
- <table>
-  <tr style="height: 5px;">
-  </tr>
-  <tr>
-   <th style="width: 10px;">
-   </th>
-   <td>
-    <div id="profileInfo">
-     <label class='name'>Complete Name: {{user.first_name}} {{user.last_name}}</label><br>
-     <label class='email'>E-mail: {{user.email}}</label><br>
-     <label class='birthday'>Birthday: {{user.date_of_birth}} ({{years}}, {{months}} and {{days}} old)</label><br>
-    </div>
-   </td>
-   <td style="width: 10%;">
-   {% if user.image != "" %}
-    <img src="/static/page/media/imgProfiles/{{user.image}}" alt="Profile Image" width="100" height="100">
-   {% endif %}
-   </td>
-  </tr>
-  <tr style="height: 5px;">
-  </tr>
- </table>
-</div>
+
+Name: <input type="text" class="form-control" id="iname" value="{{user.first_name}}"></input>
+Surname : <input type="text" class="form-control" id="isurname" value="{{user.last_name}}"></input>
+Date of birth : <input type="text" id="datepicker" value="{{user.date_of_birth.year}}-{{user.date_of_birth.month}}-{{user.date_of_birth.day}}"></input><br>
+E-mail : <input type="text" class="form-control" id="iemail" value="{{user.email}}"></input>
 <br>
+
+Country:
+<select id="country" name="country">
+</select>
+<br>
+
+<button id="save_changes">Save</button><button id="reset_changes">Reset</button>
 
 {% csrf_token %}<div id="knownLanguages"></div>{% csrf_token %}
 <select id="language">
 </select>
 
-{% csrf_token %}<button id="changeLanguageButton">Add language</button>{% csrf_token %}
+{% csrf_token %}<button id="changeLanguageButton">Add language</button>{% csrf_token %}<br>
 
+Profile photo:<br>
+<img src="static/page/media/imgProfiles/{{user.image}}" alt="Profile photo" width="100" height="100">
 <form id="fileForm" action="/upload_request/" method="POST" enctype="multipart/form-data">
 {% csrf_token %}<input id="uploadFile" type="file" name="docfile" accept="image/*"></input>{% csrf_token %}
 <input type='hidden' name='smg' value='1' />

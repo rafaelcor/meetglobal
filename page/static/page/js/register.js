@@ -21,11 +21,19 @@ $(document).ready(function () {
     }
 
     $("button").click(function(){
+        $("#okornot").hide();
         var name = $("#iname").val();
         var surname = $("#isurname").val();
         var email = $("#iemail").val();
         var password = $("#ipassword").val();
         var country = $("select").val();
+
+        if (password != $("#ipassword2").val()){
+            $("#okornot").show();
+            $("#okornot").css("display", "block");
+            $("#okornot").css("color", "red");
+            $("#okornot").text("The passwords doesn't match");
+        }
 
             var obj = {"name" : name,
                        "surname" : surname,

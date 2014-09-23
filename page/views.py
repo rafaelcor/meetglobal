@@ -242,16 +242,25 @@ class EditProfileView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         userGet = User.objects.get(username=request.user)
-        return HttpResponse(userGet.country)
+        var = dict(request.POST)
+        if var["action"][0] == "get_country":
+            return HttpResponse(userGet.country)
+        if var["action"][0] == "change_profile":
+            userGet.first_name = var["name"][0]
+            userGet.last_name = var["surname"][0]
+            userGet.date_of_birth = var["date_of_birth"][0]
+            userGet.email = var["email"][0]
+            userGet.username = var["email"][0]
+            userGet.country = var["country"][0]
+            userGet.save()
+            return HttpResponse("")
+        else:
+            return HttpResponse("Fail "+json.dumps(request.POST))
 
     def get_context_data(self, **kwargs):
         context = super(EditProfileView, self).get_context_data(**kwargs)
-        user = User.objects.get(username=self.request.user)
-        user_age = age(user.date_of_birth.day, user.date_of_birth.month, user.date_of_birth.year)
-        context['days'] = "%d %s" % (user_age[0], ("day" if user_age[0]==1 else "days"))
-        context['months'] = "%d %s" % (user_age[1], ("month" if user_age[1]==1 else "months"))
-        context['years'] = "%d %s" % (user_age[2], ("year" if user_age[2]==1 else "years"))
-        context['country'] = user.country
+        userGet = User.objects.get(username=self.request.user)
+        print dir(userGet.date_of_birth)
         return context
 
 
@@ -285,6 +294,7 @@ class RemoveLangRequest(LoginRequiredMixin, View):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
         var = dict(request.POST)
+        print var
         userGet = User.objects.get(username=request.user)
         userGet.language = userGet.language.replace(var["lang"][0], "").replace(";;", ";").replace(" ", "")
         print "-%s-"%userGet.language
