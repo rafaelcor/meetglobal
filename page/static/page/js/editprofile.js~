@@ -38,7 +38,7 @@ $(document).ready(function(){
         console.log(data=="");
         if (data != ""){
             $.each(data.split(";"), function(index, item){
-                $("#knownLanguages").append("<div><label>{0}</label><button class='removeLanguage btn btn-default' id='language_{1}'>Remove</button>                                                                  </div>".format(window.lang[item], item));
+                $("#knownLanguages").append("<div><label>{0}</label><button class='removeLanguage' id='language_{1}'>Remove</button>                                                                  </div>".format(window.lang[item], item));
                 console.log(item);
             });
             $(".removeLanguage").click(function(){
