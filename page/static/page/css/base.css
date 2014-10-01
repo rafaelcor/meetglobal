@@ -3,6 +3,10 @@
 	margin-left: 300px;
 }
 
-
-
-
+#tImage {
+	width: 100px;
+	height: 100px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	}
