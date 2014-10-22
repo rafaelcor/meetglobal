@@ -254,6 +254,13 @@ class EditProfileView(LoginRequiredMixin, TemplateView):
             userGet.country = var["country"][0]
             userGet.save()
             return HttpResponse("")
+        if var["action"][0] == "change_password":
+            usera = authenticate(username=userGet.username, password=var["actual"][0])
+            if usera != None:
+                userGet.set_password(var["new"][0])
+		userGet.save()
+            print "Hola", userGet.password
+            return HttpResponse("")
         else:
             return HttpResponse("Fail "+json.dumps(request.POST))
 

@@ -67,13 +67,46 @@ $(document).ready(function(){
                    'csrfmiddlewaretoken': $.cookie('csrftoken')}
 
         $.post("/editprofile", obj, function(data){
-            //$(location).attr('href', "/editprofile");
+            $(location).attr('href', "/editprofile");
         });
 
     });
 
     $("#reset_changes").click(function(){
         $(location).attr('href', "/editprofile");
+    });
+
+    $("#changePassword").click(function(){
+        if($("#changePassword").val() != $("#confirmPassword").val()){
+            $("#bad_confirm")[0].style.display="inline";
+        }
+        else{
+            $("#bad_confirm")[0].style.display="none";
+        }
+    });
+
+    $("#confirmPassword").click(function(){
+        if($("#changePassword").val() != $("#confirmPassword").val()){
+            $("#bad_confirm")[0].style.display="inline";
+        }
+        else{
+            $("#bad_confirm")[0].style.display="none";
+        }
+    });
+
+    $("#save_password").click(function(){
+        if($("#changePassword").val() != $("#confirmPassword").val()){
+            return;
+        }
+        var obj = {"action": "change_password",
+                   "actual": $("#actualPassword").val(),
+                   "new": $("#changePassword").val(),
+                   'csrfmiddlewaretoken': $.cookie('csrftoken')}
+
+        $.post("/editprofile", obj, function(data){
+            $(location).attr('href', "/editprofile");
+        });
+
     });
 
     jQuery.each(window.lang, function(name, value) {

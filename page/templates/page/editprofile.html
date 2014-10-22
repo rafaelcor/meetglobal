@@ -27,29 +27,34 @@ Profile photo:<br>
 
 
 Name: <input type="text" class="form-control" id="iname" value="{{user.first_name}}"></input>
-Surname : <input type="text" class="form-control" id="isurname" value="{{user.last_name}}"></input>
-Date of birth : <input type="text" id="datepicker" class="form-control" value="{{user.date_of_birth.year}}-{{user.date_of_birth.month}}-{{user.date_of_birth.day}}"></input><br>
-E-mail : <input type="text" class="form-control" id="iemail" value="{{user.email}}"></input>
+Surname: <input type="text" class="form-control" id="isurname" value="{{user.last_name}}"></input>
+Date of birth: <input type="text" id="datepicker" class="form-control" value="{{user.date_of_birth.year}}-{{user.date_of_birth.month}}-{{user.date_of_birth.day}}"></input><br>
+E-mail: <input type="text" class="form-control" id="iemail" value="{{user.email}}"></input>
 <br>
-Change Password : <input type="password" class="form-control" id="changePassowrd" value="********"></input>
-<br>
-<button id="getPassword" class="btn btn-default">Send password to email</button>
-<br><br>
 Country:
 <select id="country" name="country">
 </select>
+
 <br><br>
+<button id="save_changes" class="btn btn-default" >Save</button>
+<button id="reset_changes" class="btn btn-default" >Reset</button><br>
 
-
-
+<h4>Change language:</h4>
 {% csrf_token %}<div id="knownLanguages"></div>{% csrf_token %}
 <select id="language">
 </select>
 
-{% csrf_token %}<button id="changeLanguageButton" class="btn btn-default" >Add language</button>{% csrf_token %}<br>
-
-<button id="save_changes" class="btn btn-default" >Save</button>
-  <button id="reset_changes" class="btn btn-default" >Reset</button>
+{% csrf_token %}<button id="changeLanguageButton" class="btn btn-default" >Add language</button>{% csrf_token %}
+<br>
+<h4>Change password:</h4>
+Actual Password: <input type="password" class="form-control" id="actualPassword" placeholder="********"></input>
+New Password: <input type="password" class="form-control" id="changePassword" placeholder="********"></input>
+Repeat Password: <input type="password" class="form-control" id="confirmPassword" placeholder="********"></input>
+<div id="bad_confirm" style="display: none;">
+<font color="red">The passwords are different!</font><br>
+</div>
+<br>
+<button id="save_password" class="btn btn-default" >Save</button>
 {% endblock content %}
 
 {% block js %}
