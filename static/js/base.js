@@ -433,3 +433,12 @@ window.countries = {"AF":"Afghanistan",
 "ZR":"Zaire",
 "ZM":"Zambia",
 "ZW":"Zimbabwe"}
+
+window.messages;
+
+$(document).ready(function(){
+	$(".badge").text(window.messages);
+	setInterval(function() {
+      $(".badge").text(window.messages);
+	}, 3000);
+});

@@ -11,6 +11,7 @@ class User(models.Model):
     password = models.CharField(max_length=200)
     languages = models.CharField(max_length=200)
     image = models.ImageField(upload_to="/page/static/page/media")
+    messagesNotRead = models.IntegerField()
     
 
 class UsersToConfirm(models.Model):

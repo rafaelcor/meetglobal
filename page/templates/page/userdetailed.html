@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+{{ block.super }}
+{% endblock css %}
+
+
+{% block content %}
+
+<img></img>
+
+<label>Name: </label>
+<label>Surname: </label>
+<label>Age: </label>
+<label>Interests: </label>
+
+<label>Send a message: </label>
+<textarea rows="4" cols="50"></textarea>
+<button>Send message</button>
+{% endblock content %}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static 'page/js/userdetailed.js' %}" type='text/javascript'></script>
+{% endblock js %}

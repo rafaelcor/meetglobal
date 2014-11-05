@@ -346,7 +346,7 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
     #    print
 
     def post(self, request, *args, **kwargs):
-        var = dict(request.POST)x
+        var = dict(request.POST)
         if (not str(request.FILES["docfile"]).lower().endswith(".gif")) and (not str(request.FILES["docfile"]).lower().endswith(".jpg")) and (not str(request.FILES["docfile"]).lower().endswith(".jpeg")) and (not str(request.FILES["docfile"]).lower().endswith(".png")):
             return HttpResponse("<html><head><title>File Upload</title></head><body><b>The image must be .gif, .jpg, .jpeg or .png</b></body></html>", content_type="text/html")
         userGet = User.objects.get(username=request.user)
@@ -377,3 +377,22 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
             'form': form
         })
     """
+
+class UserDetailedView(TemplateView):
+    template_name = "userdetailed.html"
+
+
+"""implementation later
+class GetNotReadMessages(View):
+     def get(self, request, *args, **kwargs):
+        cont = 0
+        userGet = User.objects.get(username=request.user)
+        messagesGet = Message.objects.get(receiver=request.user)
+        result = {}
+        result["nnotread"] = userGet.messagesNotRead
+        for message in messagesGet:
+            cont += 1
+            result["message%d" % cont] = {"Sender": message.sender,
+                                          "Message": message.message}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+"""
