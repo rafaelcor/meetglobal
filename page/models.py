@@ -27,6 +27,7 @@ class Message(models.Model):
     sender = models.CharField(max_length=100)
     receiver = models.CharField(max_length=100)
     message = models.CharField(max_length=500)
+    read = models.BooleanField(default=False)
 
 
 class Document(models.Model):

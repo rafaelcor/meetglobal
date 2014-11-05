@@ -12,16 +12,16 @@
 {% csrf_token %}
 <p>It's time to meet people, only register you and meet the world!</p>
 <label id="okornot"></label>
-Name: <input type="text" class="form-control" id="iname"></input>
-Surname : <input type="text" class="form-control" id="isurname"></input>
-Date of birth : <input type="text" id="datepicker"></input>
+Name: <input type="text" class="form-control" id="iname" autocomplete="on"></input>
+Surname : <input type="text" class="form-control" id="isurname" autocomplete="on"></input>
+Date of birth : <input type="text" id="datepicker" autocomplete="on"></input>
 <br><br>
 Country :
 <div class="styled-select"><select id="country" name="country">
 <option value="">Country...</option>
 </select></div>
 <br>
-E-mail : <input type="text" class="form-control" id="iemail"></input>
+E-mail : <input type="text" class="form-control" id="iemail" autocomplete="on"></input>
 Password : <input type="password" class="form-control" id="ipassword"></input>
 Confirm password : <input type="password" class="form-control" id="ipassword2"></input>
 

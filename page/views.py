@@ -346,7 +346,7 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
     #    print
 
     def post(self, request, *args, **kwargs):
-        var = dict(request.POST)
+        var = dict(request.POST)x
         if (not str(request.FILES["docfile"]).lower().endswith(".gif")) and (not str(request.FILES["docfile"]).lower().endswith(".jpg")) and (not str(request.FILES["docfile"]).lower().endswith(".jpeg")) and (not str(request.FILES["docfile"]).lower().endswith(".png")):
             return HttpResponse("<html><head><title>File Upload</title></head><body><b>The image must be .gif, .jpg, .jpeg or .png</b></body></html>", content_type="text/html")
         userGet = User.objects.get(username=request.user)

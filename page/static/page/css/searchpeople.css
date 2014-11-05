@@ -10,3 +10,10 @@
 .selected{
     background-color: #818FFF
 }
+
+
+.photoProfile{
+    max-width: 80px;
+    max-height: 80px;
+
+}

@@ -15,8 +15,10 @@ $(document).ready(function(){
         //datal.push(data.split(";"));
         console.log(data);
         $.each(data, function(user, langs, nameAndSurname){
+            t = "/page/static/page/media"+ user + ".jpg";
+            console.log(user);
             $("#usersToMeet").append("<div class='user'>"+
-                                          //"<img src='/media/{0}.png'.format(user)></img>"+
+                                          "<img class='photoProfile' src='"+t+"'></img>"+
                                           "<label class='name'>&nbsp;&nbsp;Complete Name: "+ langs[1] + "</label>"+ "<br>"+
                                           "<label class='age'>&nbsp;&nbsp;Age: " + langs[2] + "</label>"+ "<br>"+
                                           "<label class='country'>&nbsp;&nbsp;Country: " + countries[langs[3]] + "</label>"+
