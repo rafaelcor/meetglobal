@@ -18,6 +18,7 @@ from page.views import RemoveLangRequest
 from page.views import SearchPeople
 from page.views import SearchPeopleRequest
 from page.views import UploadRequest
+from page.views import Messages
 
 urlpatterns = patterns('',
 
@@ -41,6 +42,7 @@ urlpatterns = patterns('',
                        url(r'^searchpeople/$', SearchPeople.as_view()),
                        url(r'^searchpeople_request/$', SearchPeopleRequest.as_view()),
                        url(r'^upload_request/$', UploadRequest.as_view()),
+                       url(r'^messages/$', Messages.as_view()),
                        #url(r'^editprofile/$', Upload.as_view()),
     
 )

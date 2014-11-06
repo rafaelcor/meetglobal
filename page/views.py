@@ -378,6 +378,10 @@ class UploadRequest(CsrfExemptMixin, LoginRequiredMixin, View):
         })
     """
 
+class Messages(LoginRequiredMixin, TemplateView):
+    template_name = "page/message.html"
+
+
 class UserDetailedView(TemplateView):
     template_name = "userdetailed.html"
 
